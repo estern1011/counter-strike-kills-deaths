@@ -42,18 +42,22 @@ def post_json_handler():
                 point['fields'] = {"count": kills - stats['kills']} # TODO: add other fields, such as flashed
                 point['tags'] = {"player": player_id} # TODO: add other tags, such as weapon
                 client.write_points([point])
+                stats['kills'] = kills
             elif deaths > stats['deaths']:
                 point = {}
                 point['measurement'] = "deaths"
                 point['fields'] = {"count": deaths - stats['deaths']}
                 point['tags'] = {"player": player_id}
                 client.write_points([point])
+                stats['deaths'] = deaths
             elif deaths < stats['deaths']:
                 stats['kills'] = 0
                 stats['deaths'] = 0
             elif kills + 2 < stats['kills']:
                 stats['kills'] = 0
                 stats['deaths'] = 0
+
+    return 'JSON posted'
 
 
 if __name__ == '__main__':
