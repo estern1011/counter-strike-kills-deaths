@@ -13,21 +13,34 @@ def ping_pong():
     return jsonify('pong!')
 
 
-stats = {}
+stats = {'kills': 0, 'deaths': 0}
 
 
 @app.route('/', methods = ['POST'])
 def post_json_handler():
+    global stats
     content = request.get_json()
     timestamp = time.time()
     pprint.pprint(content)
     print(timestamp)
-    # if player kills > stats['kills'] (or deaths)
-        # then insert a kill/death
-    # elif deaths < stats['deaths'] reset both
-    # elif kills goes down by more than one at a time, reset both
+    if 'player' in content:
+        player_stats = content['player']
+        match_stats = player_stats['match_stats']
+        kills = match_stats['kills']
+        deaths = match_stats['deaths']
 
+        if kills > stats['kills']:
+            pass
+        elif deaths > stats['deaths']:
+            pass
+        elif deaths < stats['deaths']:
+            stats['kills'] = 0
+            stats['deaths'] = 0
+        elif kills + 2 < stats['kills']:
+            stats['kills'] = 0
+            stats['deaths'] = 0
 
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5000)
+    
