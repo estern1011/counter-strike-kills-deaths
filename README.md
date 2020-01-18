@@ -1,4 +1,5 @@
 # counter-strike-kills-deaths
+Inserts Counter-Strike kill and death data into an InfluxDB database. This is useful for visualization through Chronograf.
 
 ## Setup
 - python3 -m venv /path/to/virtual/environment
